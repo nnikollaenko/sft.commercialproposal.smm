@@ -3,394 +3,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMM-продвижение — SFT Private Security Services</title>
+<title>Content Engine — SMM-апгрейд для SFT Private Security Services</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --red: #E31B23;
-    --red-dark: #B8151C;
-    --black: #0A0A0A;
-    --dark: #111111;
-    --dark2: #1A1A1A;
+    --red: #E31B23; --red-dark: #B8151C;
+    --black: #0A0A0A; --dark: #111111; --dark2: #1A1A1A;
     --border: rgba(255,255,255,0.08);
-    --text: #FFFFFF;
-    --text-muted: rgba(255,255,255,0.55);
-    --grid: 1200px;
-    --gutter: clamp(20px, 5vw, 80px);
+    --text: #FFFFFF; --text-muted: rgba(255,255,255,0.55);
+    --grid: 1200px; --gutter: clamp(20px, 5vw, 80px);
     --section-pad: clamp(60px, 8vw, 120px);
   }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--black);
-    color: var(--text);
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .container {
-    max-width: var(--grid);
-    margin: 0 auto;
-    padding: 0 var(--gutter);
-  }
+  body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .container { max-width: var(--grid); margin: 0 auto; padding: 0 var(--gutter); }
 
   /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: rgba(10,10,10,0.92);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    height: 64px;
-    display: flex;
-    align-items: center;
-  }
-  nav .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-  .nav-logo {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,10,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 64px; display: flex; align-items: center; }
+  nav .container { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+  .nav-logo { font-size: 13px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.04em; text-transform: uppercase; }
   .nav-logo span { color: var(--text); font-weight: 700; }
-  .nav-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--red);
-    color: #fff;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 10px 22px;
-    transition: background 0.2s;
-  }
+  .nav-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--red); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 10px 22px; transition: background 0.2s; }
   .nav-cta:hover { background: var(--red-dark); }
 
   /* HERO */
-  .hero-wrapper {
-    background: var(--black);
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
-  }
-  .hero-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, rgba(227,27,35,0.13) 0%, rgba(227,27,35,0.05) 40%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .hero {
-    position: relative;
-    z-index: 1;
-    max-width: var(--grid);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 var(--gutter);
-    padding-top: 64px;
-  }
-  .hero-left {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 760px;
-  }
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 28px;
-  }
-  .hero-tag::before {
-    content: '';
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--red);
-  }
-  .hero h1 {
-    font-size: clamp(32px, 4vw, 56px);
-    font-weight: 800;
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    margin-bottom: 24px;
-  }
+  .hero-wrapper { background: var(--black); display: flex; justify-content: center; height: 100vh; overflow: hidden; position: relative; }
+  .hero-wrapper::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(227,27,35,0.13) 0%, rgba(227,27,35,0.05) 40%, transparent 70%); pointer-events: none; z-index: 0; }
+  .hero { position: relative; z-index: 1; max-width: var(--grid); width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 var(--gutter); padding-top: 64px; }
+  .hero-left { display: flex; flex-direction: column; align-items: center; max-width: 760px; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 28px; }
+  .hero-tag::before { content: ''; display: block; width: 24px; height: 2px; background: var(--red); }
+  .hero h1 { font-size: clamp(32px, 4vw, 56px); font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 24px; }
   .hero h1 em { font-style: normal; color: var(--red); }
-  .hero-sub {
-    font-size: 17px;
-    color: var(--text-muted);
-    line-height: 1.65;
-    max-width: 520px;
-    margin-bottom: 40px;
-    text-align: center;
-  }
-  .hero-actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--red);
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 15px 32px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-  }
+  .hero-sub { font-size: 17px; color: var(--text-muted); line-height: 1.65; max-width: 540px; margin-bottom: 40px; text-align: center; }
+  .hero-actions { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--red); color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 15px 32px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
   .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-muted);
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    padding-bottom: 2px;
-    transition: color 0.2s, border-color 0.2s;
-  }
+  .btn-ghost { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 14px; font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
   .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
 
   /* STATS */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-  .stat-item {
-    background: var(--dark);
-    padding: 40px 36px;
-    text-align: center;
-    transition: background 0.2s;
-  }
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .stat-item { background: var(--dark); padding: 40px 36px; text-align: center; transition: background 0.2s; }
   .stat-item:hover { background: var(--dark2); }
-  .stat-num {
-    font-size: clamp(36px, 4vw, 52px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    color: var(--red);
-    line-height: 1;
-    margin-bottom: 10px;
-  }
-  .stat-label {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.4;
-  }
+  .stat-num { font-size: clamp(36px, 4vw, 52px); font-weight: 800; letter-spacing: -0.03em; color: var(--red); line-height: 1; margin-bottom: 10px; }
+  .stat-label { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
 
   /* SECTION */
   .section { padding: var(--section-pad) 0; }
   .section-header { margin-bottom: 56px; }
-  .section-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 16px;
-  }
-  .section-tag::before {
-    content: '';
-    display: block;
-    width: 20px;
-    height: 2px;
-    background: var(--red);
-  }
-  .section-title {
-    font-size: clamp(26px, 3vw, 40px);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    max-width: 600px;
-  }
+  .section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .section-tag::before { content: ''; display: block; width: 20px; height: 2px; background: var(--red); }
+  .section-title { font-size: clamp(26px, 3vw, 40px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; max-width: 640px; }
 
-  /* WHY GRID */
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1px;
-    border: 1px solid var(--border);
-  }
-  .why-item {
-    padding: 36px 32px;
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    transition: background 0.2s;
-  }
+  /* WHY */
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; border: 1px solid var(--border); }
+  .why-item { padding: 36px 32px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); transition: background 0.2s; }
   .why-item:hover { background: var(--dark2); }
-  .why-num {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--red);
-    margin-bottom: 16px;
-  }
+  .why-num { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--red); margin-bottom: 16px; }
   .why-item h3 { font-size: 16px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
   .why-item p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
 
   /* PACKAGES */
-  .packages-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: var(--border);
-    margin-bottom: 1px;
-  }
-  .package-card {
-    background: var(--dark);
-    padding: 44px 36px;
-    display: flex;
-    flex-direction: column;
-    transition: background 0.2s;
-  }
+  .packages-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); margin-bottom: 1px; }
+  .package-card { background: var(--dark); padding: 44px 36px; display: flex; flex-direction: column; transition: background 0.2s; }
   .package-card:hover { background: var(--dark2); }
-  .pack-num {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
+  .pack-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 10px; margin-bottom: 16px; }
+  .pack-badge.current { color: var(--text-muted); background: rgba(255,255,255,0.06); border: 1px solid var(--border); }
+  .pack-badge.upgrade { color: #fff; background: var(--red); }
+  .pack-num { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
   .pack-title { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 8px; }
   .pack-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.5; }
   .pack-price { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 4px; }
   .pack-note { font-size: 12px; color: var(--text-muted); margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
-  .pack-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; flex: 1; }
+  .pack-section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 12px; margin-top: 4px; }
+  .pack-section-label.accent { color: var(--red); }
+  .pack-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
   .pack-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--text-muted); line-height: 1.5; }
   .pack-features li::before { content: '—'; color: var(--red); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
   .pack-team { margin-bottom: 28px; }
   .pack-team-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; }
   .pack-team-tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .pack-team-tag { font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text-muted); padding: 5px 12px; letter-spacing: 0.04em; }
-  .pack-result { background: rgba(227,27,35,0.07); border-left: 2px solid var(--red); padding: 14px 16px; font-size: 12px; color: var(--text-muted); line-height: 1.55; margin-bottom: 28px; }
+  .pack-result { background: rgba(227,27,35,0.07); border-left: 2px solid var(--red); padding: 14px 16px; font-size: 12px; color: var(--text-muted); line-height: 1.55; margin-bottom: 28px; margin-top: auto; }
   .pack-result strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 12px; font-weight: 600; }
-  .pack-cta {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--text);
-    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700;
-    letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
-    padding: 14px 24px; transition: all 0.2s; cursor: pointer;
-  }
+  .pack-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--text); font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 14px 24px; transition: all 0.2s; cursor: pointer; }
   .pack-cta:hover { border-color: var(--red); color: var(--red); }
   .pack-cta.red { background: var(--red); border-color: var(--red); color: #fff; }
-  .pack-cta.red:hover { background: var(--red-dark); border-color: var(--red-dark); color: #fff; }
+  .pack-cta.red:hover { background: var(--red-dark); border-color: var(--red-dark); }
 
-  /* COMPARISON TABLE */
-  .compare-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid var(--border);
-  }
-  .compare-table th,
-  .compare-table td {
-    padding: 16px 24px;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-  }
-  .compare-table th {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    background: var(--dark2);
-    color: var(--text-muted);
-  }
-  .compare-table th:nth-child(2),
-  .compare-table th:nth-child(3) {
-    text-align: center;
-  }
-  .compare-table td:first-child {
-    color: var(--text-muted);
-  }
-  .compare-table td:nth-child(2),
-  .compare-table td:nth-child(3) {
-    text-align: center;
-    font-weight: 600;
-    color: var(--text);
-  }
+  /* COMPARE TABLE */
+  .compare-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); }
+  .compare-table th, .compare-table td { padding: 16px 24px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .compare-table th { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; background: var(--dark2); color: var(--text-muted); }
+  .compare-table th:nth-child(2), .compare-table th:nth-child(3) { text-align: center; }
+  .compare-table td:first-child { color: var(--text-muted); }
+  .compare-table td:nth-child(2), .compare-table td:nth-child(3) { text-align: center; font-weight: 600; color: var(--text); }
   .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
   .compare-table .check { color: var(--red); font-size: 15px; }
   .compare-table .dash { color: rgba(255,255,255,0.2); }
-  .compare-table .col-full th:nth-child(3),
-  .compare-table td:nth-child(3) {
-    border-left: 1px solid rgba(227,27,35,0.25);
-  }
+  .compare-table td:nth-child(3) { border-left: 1px solid rgba(227,27,35,0.25); }
   .col-head-light { color: var(--text) !important; }
   .col-head-full { color: var(--red) !important; }
+  .compare-table .total-row td { background: var(--dark2); border-top: 2px solid var(--red); }
 
   /* PROCESS */
-  .process-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-  .process-item {
-    background: var(--dark);
-    padding: 36px 28px;
-    transition: background 0.2s;
-  }
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .process-item { background: var(--dark); padding: 36px 28px; transition: background 0.2s; }
   .process-item:hover { background: var(--dark2); }
-  .process-num {
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--red);
-    opacity: 0.3;
-    letter-spacing: -0.03em;
-    margin-bottom: 16px;
-  }
+  .process-num { font-size: 32px; font-weight: 800; color: var(--red); opacity: 0.3; letter-spacing: -0.03em; margin-bottom: 16px; }
   .process-item h3 { font-size: 14px; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
   .process-item p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
@@ -414,21 +136,19 @@
   .footer-hours strong { color: var(--text); font-size: 13px; display: block; margin-bottom: 4px; }
   .footer-prepared { font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center; }
 
-  /* ANIMATIONS */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   .hero-tag { animation: fadeUp 0.5s ease both; }
   .hero h1 { animation: fadeUp 0.5s 0.1s ease both; }
   .hero-sub { animation: fadeUp 0.5s 0.2s ease both; }
   .hero-actions { animation: fadeUp 0.5s 0.3s ease both; }
 
-  /* RESPONSIVE */
   @media (max-width: 960px) {
     .packages-grid { grid-template-columns: 1fr; }
     .process-grid { grid-template-columns: repeat(2, 1fr); }
     .stats-row { grid-template-columns: repeat(2, 1fr); }
     .cta-inner { flex-direction: column; align-items: flex-start; }
     .footer-inner { flex-direction: column; }
-    .compare-table th, .compare-table td { padding: 12px 16px; }
+    .compare-table th, .compare-table td { padding: 12px 14px; font-size: 12px; }
   }
   @media (max-width: 640px) {
     .why-grid { grid-template-columns: 1fr; }
@@ -444,7 +164,7 @@
 <nav>
   <div class="container">
     <div class="nav-logo">Подготовлено для · <span>SFT Private Security Services</span></div>
-    <a href="https://www.instagram.com/nnikollaenko" target="_blank" class="nav-cta">Начать сотрудничество</a>
+    <a href="https://www.instagram.com/nnikollaenko" target="_blank" class="nav-cta">Перейти на Content Engine</a>
   </div>
 </nav>
 
@@ -452,18 +172,18 @@
 <div class="hero-wrapper">
   <section class="hero">
     <div class="hero-left">
-      <div class="hero-tag">SMM-продвижение</div>
-      <h1>Комплексное ведение <em>Instagram</em> для вашего бизнеса</h1>
-      <p class="hero-sub">Персональное коммерческое предложение для SFT Private Security Services — полный цикл SMM: контент, реклама, стратегия и рост.</p>
+      <div class="hero-tag">Обновление пакета · SMM</div>
+      <h1>Следующий уровень —<br><em>Content Engine</em> для SFT</h1>
+      <p class="hero-sub">На основе первого месяца сотрудничества: расширяем производство до 9 Reels, добавляем AI-видео и гарантируем стабильный выход контента независимо от вашего расписания.</p>
       <div class="hero-actions">
-        <a href="https://www.instagram.com/nnikollaenko" target="_blank" class="btn-primary">Начать сотрудничество</a>
-        <a href="#packages" class="btn-ghost">Смотреть пакеты ↓</a>
+        <a href="#packages" class="btn-primary">Смотреть предложение</a>
+        <a href="#comparison" class="btn-ghost">Сравнение с рынком ↓</a>
       </div>
     </div>
   </section>
 </div>
 
-<!-- STATS / EXPERTISE -->
+<!-- STATS -->
 <section class="section" style="background: var(--dark); padding-top: 80px; padding-bottom: 80px;">
   <div class="container">
     <div class="section-header" style="margin-bottom: 40px;">
@@ -471,22 +191,10 @@
       <h2 class="section-title">Цифры, которые говорят сами за себя</h2>
     </div>
     <div class="stats-row">
-      <div class="stat-item">
-        <div class="stat-num">6+</div>
-        <div class="stat-label">лет на рынке SMM</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">10+</div>
-        <div class="stat-label">специалистов в команде</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">30+</div>
-        <div class="stat-label">клиентов крупного бизнеса</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">4.5</div>
-        <div class="stat-label">года — средний LTV проекта</div>
-      </div>
+      <div class="stat-item"><div class="stat-num">6+</div><div class="stat-label">лет на рынке SMM</div></div>
+      <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">специалистов в команде</div></div>
+      <div class="stat-item"><div class="stat-num">30+</div><div class="stat-label">клиентов крупного бизнеса</div></div>
+      <div class="stat-item"><div class="stat-num">4.5</div><div class="stat-label">года — средний LTV проекта</div></div>
     </div>
   </div>
 </section>
@@ -496,38 +204,38 @@
   <div class="container">
     <div class="section-header">
       <div class="section-tag">Почему это важно</div>
-      <h2 class="section-title">Каждый месяц без SMM — это месяц, который конкурент использует для роста</h2>
+      <h2 class="section-title">Каждый месяц без роста — это месяц, который конкурент использует для масштабирования</h2>
     </div>
     <div class="why-grid">
       <div class="why-item">
         <div class="why-num">01</div>
         <h3>Instagram — точка первого доверия</h3>
-        <p>Прежде чем клиент позвонит — он откроет ваш Instagram. Пустой или неактивный профиль = отсутствие доверия. Сильное присутствие в соцсетях создаёт репутацию ещё до первого контакта.</p>
+        <p>Прежде чем клиент позвонит — он откроет ваш Instagram. Сильное присутствие в соцсетях создаёт репутацию ещё до первого контакта и напрямую влияет на конверсию в заявку.</p>
       </div>
       <div class="why-item">
         <div class="why-num">02</div>
-        <h3>Контент без системы не продаёт</h3>
-        <p>Разовые посты без стратегии — это шум. Работающий SMM строится на регулярности, чёткой рубрикации и измеримых KPI. Именно это превращает подписчиков в клиентов.</p>
+        <h3>Reels — главный инструмент роста в 2025–2026</h3>
+        <p>Алгоритм Instagram показывает Reels в 3–5 раз большей аудитории, чем обычные посты. 9 Reels в месяц — это системный рост охвата и подписчиков без рекламного бюджета.</p>
       </div>
       <div class="why-item">
         <div class="why-num">03</div>
-        <h3>Таргет без контента сжигает бюджет</h3>
-        <p>Реклама приводит людей на профиль. Если профиль не убеждает — бюджет потрачен впустую. Контент и таргет должны работать в связке, а не по отдельности.</p>
+        <h3>Таргет без сильного контента сжигает бюджет</h3>
+        <p>Реклама приводит людей на профиль. Если профиль не убеждает — бюджет потрачен впустую. Контент и таргет работают как система, а не как разные статьи расходов.</p>
       </div>
       <div class="why-item">
         <div class="why-num">04</div>
         <h3>Аудитория премиум-сегмента требует качества</h3>
-        <p>Клиент, который выбирает частную охрану или охрану яхты, привык к высоким стандартам. Визуал, тексты и подача должны соответствовать уровню вашего бизнеса — иначе он просто пройдёт мимо.</p>
+        <p>Клиент, выбирающий частную охрану или охрану яхты, привык к высоким стандартам. Визуал, тексты и подача должны соответствовать уровню бизнеса — иначе он просто пройдёт мимо.</p>
       </div>
       <div class="why-item">
         <div class="why-num">05</div>
-        <h3>UGC и блогеры усиливают доверие</h3>
-        <p>Отзывы реальных клиентов и коллаборации с нишевыми инфлюенсерами работают лучше любой прямой рекламы — особенно в B2B и premium-сегментах, где слово рекомендации на вес золота.</p>
+        <h3>AI-видео — страховка и конкурентное преимущество</h3>
+        <p>3–5 AI-генераций в месяц решают две задачи: гарантия выхода контента, даже если съёмка не состоялась, и создание визуальных эффектов, недостижимых при мобильной съёмке.</p>
       </div>
       <div class="why-item">
         <div class="why-num">06</div>
         <h3>Без еженедельной аналитики вы летите вслепую</h3>
-        <p>Какой пост сработал? Какая аудитория конвертируется? Без данных нет роста. Еженедельные KPI-отчёты и ежемесячные стратсессии — это не формальность, это основа управляемого продвижения.</p>
+        <p>Какой пост сработал? Какая аудитория конвертируется? Без данных нет роста. Еженедельные KPI-отчёты и ежемесячные стратсессии — основа управляемого продвижения.</p>
       </div>
     </div>
   </div>
@@ -538,29 +246,29 @@
   <div class="container">
     <div class="section-header">
       <div class="section-tag">Пакеты SMM</div>
-      <h2 class="section-title">Выберите подходящий формат работы</h2>
+      <h2 class="section-title">Ваш текущий план и предложение об апгрейде</h2>
     </div>
     <div class="packages-grid">
 
-      <!-- LIGHT -->
+      <!-- CURRENT: LIGHT -->
       <div class="package-card">
+        <span class="pack-badge current">Ваш текущий план</span>
         <div class="pack-num">Пакет 1</div>
         <div class="pack-title">Light Plan</div>
-        <div class="pack-subtitle">Системное присутствие в соцсетях с измеримыми результатами — старт без лишних рисков</div>
+        <div class="pack-subtitle">Системное присутствие в соцсетях с измеримыми результатами</div>
         <div class="pack-price">1 450 €</div>
         <div class="pack-note">/ месяц · рекламный бюджет отдельно</div>
-        <ul class="pack-features">
+        <ul class="pack-features" style="flex:1;">
           <li>Разработка стратегии продвижения и брендбука</li>
           <li>12 постов/месяц — Instagram + Facebook</li>
           <li>2 stories-серии в неделю (рубрики, вовлечённость, продукт)</li>
-          <li>Подготовка сценариев и подробного ТЗ для съёмки</li>
+          <li>Подготовка сценариев и ТЗ для съёмки</li>
           <li>1 UGC-кампания в месяц (подбор + ТЗ + публикация)</li>
-          <li>Instagram Ads — таргет + ведение (бюджет отдельно)</li>
-          <li>Facebook Ads — таргет + ведение (бюджет отдельно)</li>
+          <li>Instagram Ads + Facebook Ads — таргет и ведение</li>
           <li>Еженедельный KPI-отчёт</li>
           <li>Ежемесячная стратегическая сессия</li>
         </ul>
-        <div class="pack-team">
+        <div class="pack-team" style="margin-top:28px;">
           <div class="pack-team-label">Команда проекта</div>
           <div class="pack-team-tags">
             <span class="pack-team-tag">SMM-специалист</span>
@@ -571,45 +279,42 @@
         </div>
         <div class="pack-result">
           <strong>Для кого подходит</strong>
-          Бизнес, который хочет выстроить системное присутствие в Instagram и Facebook, получать стабильный поток лидов через таргет и контролировать результаты каждую неделю.
+          Системное присутствие в Instagram и Facebook, стабильный поток лидов через таргет и контроль результатов каждую неделю.
         </div>
-        <a href="https://www.instagram.com/nnikollaenko" target="_blank" class="pack-cta">Выбрать пакет</a>
+        <a href="https://www.instagram.com/nnikollaenko" target="_blank" class="pack-cta">Остаться на этом плане</a>
       </div>
 
-      <!-- FULL SCOPE -->
-      <div class="package-card" style="background: var(--dark2); border: 1px solid rgba(227,27,35,0.25); margin: -1px; z-index: 1; position: relative;">
-        <div style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fff;background:var(--red);padding:5px 10px;margin-bottom:16px;">⭐ Рекомендуем</div>
+      <!-- UPGRADE: CONTENT ENGINE -->
+      <div class="package-card" style="background: var(--dark2); border: 1px solid rgba(227,27,35,0.3); margin: -1px; z-index: 1; position: relative;">
+        <span class="pack-badge upgrade">⚡ Рекомендуемый апгрейд</span>
         <div class="pack-num">Пакет 2</div>
-        <div class="pack-title">Full Scope</div>
-        <div class="pack-subtitle">Полный цикл SMM: производство, реклама, стратегия и работа с аудиторией — всё в одном пакете</div>
-        <div class="pack-price">1 750 €</div>
+        <div class="pack-title">Content Engine</div>
+        <div class="pack-subtitle">AI-first производство: 9 Reels, выездные съёмки, AI-видео и гарантия бесперебойного контента</div>
+        <div class="pack-price">4 400 €</div>
         <div class="pack-note">/ месяц · рекламный бюджет отдельно</div>
 
-        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:16px;">Производство контента</div>
-        <ul class="pack-features" style="margin-bottom:24px;">
-          <li>15 постов/месяц — Instagram + Facebook</li>
-          <li>Stories (3+ сторителлинга в неделю)</li>
-          <li>2 часа съёмки на камеру</li>
-          <li>UGC — 2–4 коллаборации/месяц</li>
-          <li>Дизайн-система бренда в соцсетях</li>
-          <li>Кроспостинг на YouTube Shorts и TikTok</li>
+        <div class="pack-section-label">Базовое SMM-ведение (из текущего плана)</div>
+        <ul class="pack-features">
+          <li>12 постов/месяц — Instagram + Facebook</li>
+          <li>Stories: 2 серии/неделю + UGC 1/мес</li>
+          <li>Instagram + Facebook Ads (таргет, A/B тесты, ретаргетинг)</li>
+          <li>Еженедельный KPI-отчёт + ежемесячная стратсессия</li>
         </ul>
 
-        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:16px;">Реклама и лиды</div>
-        <ul class="pack-features" style="margin-bottom:24px;">
-          <li>Instagram + Facebook Ads — таргет и ведение</li>
-          <li>A/B тестирование креативов еженедельно</li>
-          <li>Ретаргетинг и воронки</li>
-          <li>Прогноз бюджета + ROAS-трекинг</li>
+        <div class="pack-section-label accent">⚡ Production: 9 Reels в месяц — новое</div>
+        <ul class="pack-features">
+          <li>3 съёмочные сессии × 2 часа = 3 Reels за сессию</li>
+          <li>ТЗ и сценарий для каждого Reel, монтаж и субтитры</li>
+          <li>Подбор и организация локаций под каждую тематику</li>
+          <li>3 выездные съёмки по острову — транспорт включён</li>
+          <li>Мобильный видеооператор — включено в стоимость</li>
         </ul>
 
-        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:16px;">Стратегия и рост</div>
+        <div class="pack-section-label accent">🤖 AI-First Content: 3–5 видео в месяц — новое</div>
         <ul class="pack-features" style="margin-bottom:28px;">
-          <li>Полная контент-стратегия и ежемесячное обновление</li>
-          <li>Работа с micro-influencers (подбор + ТЗ + отчёт)</li>
-          <li>Community management</li>
-          <li>Еженедельный KPI-дашборд</li>
-          <li>Ежемесячная стратегическая сессия</li>
+          <li>AI-генерация вирусных Reels с брендингом SFT</li>
+          <li>Рекламные AI-креативы для A/B тестирования в таргете</li>
+          <li>Страховка от простоя: контент выходит по плану, даже если съёмка не состоялась</li>
         </ul>
 
         <div class="pack-team">
@@ -620,142 +325,123 @@
             <span class="pack-team-tag">Дизайнер</span>
             <span class="pack-team-tag">Стратег</span>
             <span class="pack-team-tag">Таргетолог</span>
-            <span class="pack-team-tag">Рилсмейкер</span>
+            <span class="pack-team-tag">Мобильный оператор</span>
+            <span class="pack-team-tag">AI-специалист</span>
           </div>
         </div>
         <div class="pack-result">
           <strong>Для кого подходит</strong>
-          Бизнес, готовый к масштабированию через соцсети: полноценное производство контента, управляемая реклама с прозрачными метриками и работа с аудиторией по всем фронтам.
+          Бизнес, готовый к активному росту: регулярное производство Reels, AI-контент для вирусного охвата и гарантия стабильного выхода контента — независимо от занятости владельца.
         </div>
-        <a href="https://www.instagram.com/nnikollaenko" target="_blank" class="pack-cta red">Выбрать Full Scope →</a>
+        <a href="https://www.instagram.com/nnikollaenko" target="_blank" class="pack-cta red">Перейти на Content Engine →</a>
       </div>
 
     </div>
 
-    <!-- COMPARISON TABLE -->
+    <!-- PLAN COMPARISON TABLE -->
     <div style="margin-top: 60px;">
       <div class="section-header" style="margin-bottom: 32px;">
         <div class="section-tag">Сравнение планов</div>
-        <h2 class="section-title" style="font-size: clamp(22px, 2.5vw, 32px);">Выберите уровень, который соответствует вашим целям</h2>
+        <h2 class="section-title" style="font-size: clamp(22px, 2.5vw, 32px);">Что меняется при переходе на Content Engine</h2>
       </div>
       <table class="compare-table">
         <thead>
           <tr>
             <th style="width: 50%;">Что входит</th>
-            <th class="col-head-light">Light · 1 450 €/мес</th>
-            <th class="col-head-full">Full Scope · 1 750 €/мес</th>
+            <th class="col-head-light">Текущий план · 1 450 €/мес</th>
+            <th class="col-head-full">Content Engine · 4 400 €/мес</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Посты Instagram + Facebook</td>
-            <td>12/мес</td>
-            <td>15/мес</td>
-          </tr>
-          <tr>
-            <td>YouTube Shorts, TikTok (кроспостинг)</td>
-            <td><span class="dash">—</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>Stories в неделю</td>
-            <td>2 серии</td>
-            <td>3+ серии</td>
-          </tr>
-          <tr>
-            <td>Съёмка на камеру</td>
-            <td><span class="dash">—</span></td>
-            <td>2 часа/мес</td>
-          </tr>
-          <tr>
-            <td>UGC-кампании</td>
-            <td>1/мес</td>
-            <td>2–4/мес</td>
-          </tr>
-          <tr>
-            <td>Таргет</td>
-            <td>IG + FB Ads</td>
-            <td>FB + IG Ads</td>
-          </tr>
-          <tr>
-            <td>A/B тестирование рекламы</td>
-            <td><span class="dash">—</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>Ретаргетинг и воронки</td>
-            <td><span class="dash">—</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>ROAS-трекинг и прогноз бюджета</td>
-            <td><span class="dash">—</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>Работа с блогерами / micro-influencers</td>
-            <td><span class="dash">—</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>Community management</td>
-            <td><span class="dash">—</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>Стратегия и ежемесячное обновление</td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>Еженедельный KPI-отчёт</td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>Ежемесячная стратсессия</td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>Количество специалистов</td>
-            <td>4</td>
-            <td>6</td>
-          </tr>
+          <tr><td>Посты Instagram + Facebook</td><td>12/мес</td><td>12/мес</td></tr>
+          <tr><td>Stories в неделю</td><td>2 серии</td><td>2 серии</td></tr>
+          <tr><td>UGC-кампании</td><td>1/мес</td><td>1/мес</td></tr>
+          <tr><td>Таргет IG + FB</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>A/B тестирование рекламы</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Ретаргетинг и воронки</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Еженедельный KPI-отчёт</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Стратегическая сессия</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Reels производство</td><td><span class="dash">—</span></td><td>9 шт/мес</td></tr>
+          <tr><td>Съёмочные сессии</td><td><span class="dash">—</span></td><td>3 × 2 часа</td></tr>
+          <tr><td>Выездные локации по Кипру</td><td><span class="dash">—</span></td><td>3/мес · транспорт включён</td></tr>
+          <tr><td>AI-видео в месяц</td><td><span class="dash">—</span></td><td>3–5 шт</td></tr>
+          <tr><td>Страховка от простоя контента</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Количество специалистов</td><td>4</td><td>7</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
+<!-- ON-DEMAND VS PACKAGE -->
+<section id="comparison" class="section" style="background: var(--black);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Экономика</div>
+      <h2 class="section-title">Content Engine vs. разовые заказы</h2>
+      <p style="margin-top: 16px; font-size: 15px; color: var(--text-muted); max-width: 560px; line-height: 1.65;">Посчитайте, сколько те же услуги обошлись бы при покупке по отдельности — без пакета, без стратегии, без гарантий.</p>
+    </div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="width: 44%;">Услуга</th>
+          <th class="col-head-light">Разовый заказ (рынок Кипра)</th>
+          <th class="col-head-full">Content Engine · 4 400 €</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>SMM-ведение + таргет + дизайн</td><td>€950</td><td><span class="check">Включено</span></td></tr>
+        <tr><td>Съёмка Reels (9 шт, оператор + монтаж)</td><td>~€540</td><td><span class="check">Включено</span></td></tr>
+        <tr><td>Аренда и организация локаций</td><td>€1 000+</td><td><span class="check">Включено</span></td></tr>
+        <tr><td>AI-видео (3 шт, студийная цена)</td><td>€900 – €1 500</td><td><span class="check">Включено</span></td></tr>
+        <tr><td>Транспорт на 3 выезда по острову</td><td>€150 – €300</td><td><span class="check">Включено</span></td></tr>
+        <tr><td>PM / Стратегия / Отчётность</td><td>€500 – €800</td><td><span class="check">Включено</span></td></tr>
+        <tr><td>Риск простоя при занятости владельца</td><td style="color: var(--red); font-weight: 700;">Высокий</td><td><span class="check">Нулевой (AI-страховка)</span></td></tr>
+        <tr class="total-row">
+          <td><strong style="font-size: 15px; color: var(--text);">Итого в месяц</strong></td>
+          <td><strong style="font-size: 15px;">~€4 500 – €5 500+</strong></td>
+          <td><strong style="font-size: 22px; color: var(--red); letter-spacing: -0.02em;">€4 400</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border);">
+      <div style="background: var(--dark); padding: 28px 24px;">
+        <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); margin-bottom: 10px;">Экономия</div>
+        <div style="font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">€100–1 100+</div>
+        <div style="font-size: 13px; color: var(--text-muted); line-height: 1.55;">в месяц по сравнению с разовыми заказами — при одинаковом объёме услуг</div>
+      </div>
+      <div style="background: var(--dark); padding: 28px 24px;">
+        <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); margin-bottom: 10px;">Гарантия</div>
+        <div style="font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">9 Reels</div>
+        <div style="font-size: 13px; color: var(--text-muted); line-height: 1.55;">каждый месяц — независимо от вашего расписания. Если съёмка не состоялась, AI-контент заменяет выпавшие единицы</div>
+      </div>
+      <div style="background: var(--dark); padding: 28px 24px;">
+        <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); margin-bottom: 10px;">Технологии</div>
+        <div style="font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">AI-first</div>
+        <div style="font-size: 13px; color: var(--text-muted); line-height: 1.55;">вирусные видео с эффектами, недоступными при мобильной съёмке — усиливают CTR в таргете и шансы на залёт в Reels</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 2px; background: rgba(227,27,35,0.07); border-left: 3px solid var(--red); padding: 22px 28px; font-size: 14px; color: var(--text-muted); line-height: 1.75;">
+      <strong style="color: var(--text); display: block; margin-bottom: 6px; font-size: 15px;">Почему €4 400 — это не «дороже»</strong>
+      Content Engine по цене €4 400 стоит <em style="color:var(--text);font-style:normal;">дешевле рынка</em>. Те же услуги при разовых заказах обошлись бы в €4 500–5 500 в месяц — плюс десятки часов на поиск, координацию и контроль разных подрядчиков. Здесь всё работает как один отлаженный механизм с единой ответственностью за результат.
+    </div>
+  </div>
+</section>
+
 <!-- PROCESS -->
-<section class="section" style="background: var(--black);">
+<section class="section" style="background: var(--dark);">
   <div class="container">
     <div class="section-header">
       <div class="section-tag">Как мы работаем</div>
       <h2 class="section-title">Система без стресса — вы видите всё в реальном времени</h2>
     </div>
     <div class="process-grid">
-      <div class="process-item">
-        <div class="process-num">01</div>
-        <h3>Стратегия</h3>
-        <p>Коммуникационная стратегия: целевая аудитория, тон, рубрики, конкуренты, позиционирование. Презентация → согласование → старт.</p>
-      </div>
-      <div class="process-item">
-        <div class="process-num">02</div>
-        <h3>Медиаплан</h3>
-        <p>Живой дашборд Google Sheets: контент, KPI, тексты, данные рекламы. Вы видите всё — без лишних вопросов.</p>
-      </div>
-      <div class="process-item">
-        <div class="process-num">03</div>
-        <h3>Еженедельный ритм</h3>
-        <p>Контент на согласование — каждый четверг. Апдейт по результатам — каждый понедельник в письменном виде.</p>
-      </div>
-      <div class="process-item">
-        <div class="process-num">04</div>
-        <h3>Стратсессия</h3>
-        <p>Результаты, гипотезы и план следующего месяца — встреча 60 минут вокруг ваших приоритетов.</p>
-      </div>
+      <div class="process-item"><div class="process-num">01</div><h3>Стратегия</h3><p>Коммуникационная стратегия: целевая аудитория, тон, рубрики, конкуренты, позиционирование. Презентация → согласование → старт.</p></div>
+      <div class="process-item"><div class="process-num">02</div><h3>Медиаплан</h3><p>Живой дашборд Google Sheets: контент, KPI, тексты, данные рекламы. Вы видите всё — без лишних вопросов.</p></div>
+      <div class="process-item"><div class="process-num">03</div><h3>Еженедельный ритм</h3><p>Контент на согласование — каждый четверг. Апдейт по результатам — каждый понедельник в письменном виде.</p></div>
+      <div class="process-item"><div class="process-num">04</div><h3>Стратсессия</h3><p>Результаты, гипотезы и план следующего месяца — встреча 60 минут вокруг ваших приоритетов.</p></div>
     </div>
     <div style="border: 1px solid var(--border); border-top: none; padding: 24px 32px; background: var(--dark); font-size: 14px; color: var(--text-muted); line-height: 1.7;">
       Вы никогда не будете гадать, что происходит. Дедлайны — это закон. Отчёты — это факты. Стратегия — это живой документ, а не файл в ящике стола.
@@ -768,10 +454,10 @@
   <div class="container">
     <div class="cta-inner">
       <div class="cta-text">
-        <h2>Готовы стать лидером ниши?</h2>
-        <p>Выберите подходящий пакет — и мы согласуем старт работ в удобное время.</p>
+        <h2>Готовы перейти на следующий уровень?</h2>
+        <p>Content Engine — это не просто больше контента, это системный рост с гарантированным результатом каждый месяц.</p>
       </div>
-      <a href="https://www.instagram.com/nnikollaenko" target="_blank" class="btn-white">Начать сотрудничество →</a>
+      <a href="https://www.instagram.com/nnikollaenko" target="_blank" class="btn-white">Перейти на Content Engine →</a>
     </div>
   </div>
 </section>

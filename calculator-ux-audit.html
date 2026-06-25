@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UX-аудит · Security Alarm Calculator — SFT × nìkel digital studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #E31B23; --red-dark: #B8151C;
+    --amber: #F59E0B;
+    --black: #0A0A0A; --dark: #111111; --dark2: #1A1A1A;
+    --border: rgba(255,255,255,0.08);
+    --text: #FFFFFF; --text-muted: rgba(255,255,255,0.55);
+    --grid: 1200px; --gutter: clamp(20px, 5vw, 80px);
+    --section-pad: clamp(60px, 8vw, 120px);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .container { max-width: var(--grid); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,10,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 64px; display: flex; align-items: center; }
+  nav .container { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+  .nav-logo { font-size: 13px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.04em; text-transform: uppercase; }
+  .nav-logo span { color: var(--text); font-weight: 700; }
+  .nav-link { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 9px 20px; transition: all 0.2s; }
+  .nav-link:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
+
+  /* HERO */
+  .hero-wrapper { background: var(--black); display: flex; justify-content: center; min-height: 100vh; overflow: hidden; position: relative; padding-top: 64px; }
+  .hero-wrapper::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(227,27,35,0.1) 0%, rgba(227,27,35,0.04) 40%, transparent 70%); pointer-events: none; z-index: 0; }
+  .hero { position: relative; z-index: 1; max-width: var(--grid); width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: clamp(60px,10vw,140px) var(--gutter) clamp(40px,6vw,80px); }
+  .hero-inner { display: flex; flex-direction: column; align-items: center; max-width: 820px; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 28px; animation: fadeUp 0.5s ease both; }
+  .hero-tag::before { content: ''; display: block; width: 24px; height: 2px; background: var(--red); }
+  .hero h1 { font-size: clamp(30px, 4vw, 58px); font-weight: 800; line-height: 1.08; letter-spacing: -0.025em; margin-bottom: 22px; animation: fadeUp 0.5s 0.1s ease both; }
+  .hero h1 em { font-style: normal; color: var(--red); }
+  .hero-sub { font-size: 17px; color: var(--text-muted); line-height: 1.65; max-width: 580px; margin-bottom: 44px; animation: fadeUp 0.5s 0.2s ease both; }
+  .hero-actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; animation: fadeUp 0.5s 0.3s ease both; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--red); color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 14px 32px; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+  .btn-ghost { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 13px; font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.55); }
+
+  /* STATS */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .stat-item { background: var(--dark); padding: 36px 30px; text-align: center; transition: background 0.2s; }
+  .stat-item:hover { background: var(--dark2); }
+  .stat-num { font-size: clamp(36px, 4vw, 52px); font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin-bottom: 10px; }
+  .stat-num.red { color: var(--red); }
+  .stat-num.amber { color: var(--amber); }
+  .stat-num.muted { color: rgba(255,255,255,0.35); }
+  .stat-num.total { color: #fff; }
+  .stat-label { font-size: 13px; color: var(--text-muted); line-height: 1.45; }
+  .stat-sub { font-size: 11px; color: rgba(255,255,255,0.28); margin-top: 5px; }
+
+  /* SECTION */
+  .section { padding: var(--section-pad) 0; }
+  .section-header { margin-bottom: 48px; }
+  .section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; }
+  .section-tag::before { content: ''; display: block; width: 20px; height: 2px; }
+  .section-tag.crit { color: var(--red); }
+  .section-tag.crit::before { background: var(--red); }
+  .section-tag.high { color: var(--amber); }
+  .section-tag.high::before { background: var(--amber); }
+  .section-tag.low { color: rgba(255,255,255,0.4); }
+  .section-tag.low::before { background: rgba(255,255,255,0.4); }
+  .section-tag.recs { color: #4ade80; }
+  .section-tag.recs::before { background: #4ade80; }
+  .section-title { font-size: clamp(24px, 2.8vw, 38px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+  .section-desc { margin-top: 14px; font-size: 15px; color: var(--text-muted); max-width: 600px; line-height: 1.65; }
+
+  /* ISSUE CARDS */
+  .issues-list { display: flex; flex-direction: column; border: 1px solid var(--border); }
+  .issue-card { background: var(--dark); display: grid; grid-template-columns: 36% 64%; border-bottom: 1px solid var(--border); transition: background 0.2s; }
+  .issue-card:last-child { border-bottom: none; }
+  .issue-card:hover { background: var(--dark2); }
+  .issue-left { padding: 36px; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; }
+  .issue-right { padding: 36px 44px; }
+  .issue-num { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  .issue-num.crit { color: var(--red); }
+  .issue-num.high { color: var(--amber); }
+  .issue-num.low { color: rgba(255,255,255,0.35); }
+  .severity-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; width: fit-content; }
+  .severity-badge.crit { background: rgba(227,27,35,0.15); color: var(--red); border: 1px solid rgba(227,27,35,0.25); }
+  .severity-badge.high { background: rgba(245,158,11,0.12); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
+  .severity-badge.low { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.1); }
+  .issue-title { font-size: 17px; font-weight: 800; line-height: 1.3; letter-spacing: -0.01em; }
+  .issue-where { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+  .issue-desc { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
+  .issue-fix { margin-top: 16px; }
+  .fix-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.28); margin-bottom: 8px; }
+  .fix-label.crit { color: rgba(227,27,35,0.7); }
+  .fix-label.high { color: rgba(245,158,11,0.65); }
+  .fix-label.low { color: rgba(255,255,255,0.28); }
+  .fix-text { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.65; }
+
+  /* IMPACT HIGHLIGHT */
+  .impact-note { display: inline-flex; align-items: flex-start; gap: 10px; background: rgba(227,27,35,0.06); border: 1px solid rgba(227,27,35,0.18); padding: 14px 18px; margin-top: 14px; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .impact-note strong { color: var(--text); }
+  .impact-icon { color: var(--red); font-size: 14px; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+
+  /* ROADMAP */
+  .roadmap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .roadmap-item { background: var(--dark); padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; transition: background 0.2s; }
+  .roadmap-item:hover { background: var(--dark2); }
+  .roadmap-phase { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 10px; width: fit-content; }
+  .phase-1 { background: rgba(227,27,35,0.15); color: var(--red); }
+  .phase-2 { background: rgba(245,158,11,0.12); color: var(--amber); }
+  .phase-3 { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.45); }
+  .roadmap-item h3 { font-size: 16px; font-weight: 800; line-height: 1.3; }
+  .roadmap-item ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .roadmap-item ul li { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+  .roadmap-item ul li::before { content: '—'; color: var(--red); font-weight: 700; flex-shrink: 0; }
+  .roadmap-effort { font-size: 11px; color: rgba(255,255,255,0.28); margin-top: 4px; }
+
+  /* FOOTER */
+  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 48px 0; }
+  .footer-inner { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+  .footer-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .footer-contacts { display: flex; flex-direction: column; gap: 8px; }
+  .footer-contacts a { color: var(--text-muted); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-contacts a:hover { color: var(--text); }
+  .footer-prepared { font-size: 12px; color: rgba(255,255,255,0.2); margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 960px) {
+    .issue-card { grid-template-columns: 1fr; }
+    .issue-left { border-right: none; border-bottom: 1px solid var(--border); padding: 28px 24px; }
+    .issue-right { padding: 28px 24px; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .roadmap-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; }
+  }
+  @media (max-width: 640px) {
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .hero-actions { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="nav-logo">nìkel digital studio &nbsp;·&nbsp; <span>SFT Security</span></div>
+    <a href="https://admin.sft.cy/calculator/" target="_blank" class="nav-link">Открыть калькулятор ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero-wrapper">
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">UX-аудит &middot; Июнь 2026</div>
+      <h1>Security Alarm Calculator:<br><em>27 проблем,</em><br>которые мешают конверсии</h1>
+      <p class="hero-sub">Полный разбор UX калькулятора sft.cy — от критических багов до точечных улучшений. Приоритизировано по влиянию на конверсию.</p>
+      <div class="hero-actions">
+        <a href="#critical" class="btn-primary">Смотреть критические →</a>
+        <a href="#roadmap" class="btn-ghost">Roadmap исправлений ↓</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- STATS -->
+<section class="section" style="padding-top: 0; padding-bottom: 0; background: var(--dark);">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num total">27</div>
+        <div class="stat-label">проблем найдено</div>
+        <div class="stat-sub">Итого по всем уровням</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num red">7</div>
+        <div class="stat-label">Критических</div>
+        <div class="stat-sub">Ломают конверсию</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num amber">10</div>
+        <div class="stat-label">Высокого приоритета</div>
+        <div class="stat-sub">Снижают доверие</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num muted">10</div>
+        <div class="stat-label">Минорных</div>
+        <div class="stat-sub">Полировка качества</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRITICAL -->
+<section id="critical" class="section" style="background: var(--black);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag crit">Критические проблемы</div>
+      <h2 class="section-title">7 проблем, которые ломают конверсию</h2>
+      <p class="section-desc">Эти баги и UX-ошибки приводят к немедленному отказу пользователя. Исправлять в первую очередь — до любых дизайн-улучшений.</p>
+    </div>
+
+    <div class="issues-list">
+
+      <!-- C-01 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num crit">C-01</span>
+          <span class="severity-badge crit">Критично</span>
+          <div class="issue-title">Шок-цена €2 473 при первом открытии страницы</div>
+          <div class="issue-where">Правая панель · Первый экран</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            Пользователь только зашёл на сайт — и сразу видит сумму €2 473. Он ещё ничего не выбрал, не понял что это такое, не доверяет бренду. Дефолтные значения (80 м², 3 спальни, AJAX, Basic) сформированы для «среднего» объекта, но для нового посетителя они ничего не значат. Первый эмоциональный импульс: «дорого, не для меня» — и человек закрывает страницу.
+          </div>
+          <div class="impact-note">
+            <span class="impact-icon">!</span>
+            <span>Ценовой якорь формируется в первые секунды. Если первое число — €2 473, пользователь уходит ещё до начала взаимодействия с калькулятором.</span>
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label crit">Рекомендация</div>
+            <div class="fix-text">Скрыть правую панель с ценой до момента, пока пользователь не завершит хотя бы Шаг 1. Показывать «Ваша конфигурация появится здесь» или skeleton-placeholder. Цена должна появляться как <em>результат</em> действий пользователя, а не встречать его на входе.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C-02 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num crit">C-02</span>
+          <span class="severity-badge crit">Критично</span>
+          <div class="issue-title">«Other» выбран — никакой реакции системы</div>
+          <div class="issue-where">Шаг 1 · Choose property type</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            При выборе карточки «Other» система не запрашивает уточнение типа объекта. Пользователь нажал — и ничего не изменилось. Это тупик: расчёт продолжится с неопределённым типом объекта, что даст некорректный результат и снизит доверие к точности калькулятора.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label crit">Рекомендация</div>
+            <div class="fix-text">После выбора «Other» показывать текстовое поле «Опишите ваш объект» или выпадающий список с дополнительными типами (склад, яхта, ресторан и т.д.). Без этого расчёт не имеет смысла.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C-03 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num crit">C-03</span>
+          <span class="severity-badge crit">Критично</span>
+          <div class="issue-title">Площадь (200 м² = 1000 м²) не влияет на цену</div>
+          <div class="issue-where">Шаг 1 · Слайдер Property area</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            Ползунок площади перетаскивается от 20 до 1000 м², но итоговая сумма в правой панели не меняется. Площадь влияет только на добавление репитера при &ge;200 м² или &gt;3 спальнях. Пользователь ожидает, что больший объект = выше цена. Увидев статичную сумму, он решит, что калькулятор сломан — и уйдёт.
+          </div>
+          <div class="impact-note">
+            <span class="impact-icon">!</span>
+            <span>Это разрушает основной смысл инструмента. Калькулятор должен <strong>считать</strong> — видимо и ощутимо.</span>
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label crit">Рекомендация</div>
+            <div class="fix-text">Добавить в логику расчёта зависимость от площади: кол-во датчиков движения, дополнительные зоны. Или добавить логику для крупных объектов (200+, 400+, 600+ м²). Слайдер должен давать видимый отклик в цене.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C-04 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num crit">C-04</span>
+          <span class="severity-badge crit">Критично</span>
+          <div class="issue-title">На мобильном правая панель теряет sticky — цена исчезает</div>
+          <div class="issue-where">Мобильная версия · Правая панель</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            При ширине &lt;1200px правая панель получает <code>position: static</code> и уходит под левый контент. Пользователь на смартфоне заполняет форму и не видит, как меняется итоговая сумма. Весь смысл калькулятора — интерактивный подбор с отображением цены в реальном времени — на мобильных не работает.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label crit">Рекомендация</div>
+            <div class="fix-text">На мобильном добавить фиксированную плашку с итоговой суммой внизу экрана (как sticky footer). Она должна обновляться при изменении параметров и оставаться видимой на всём пути прохождения шагов.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C-05 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num crit">C-05</span>
+          <span class="severity-badge crit">Критично</span>
+          <div class="issue-title">Правая панель не скроллится независимо от левой</div>
+          <div class="issue-where">Десктоп · Правая панель</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            Правая панель sticky, но при попытке скроллить внутри неё страница прокручивает левую часть. Список оборудования заперт — пользователь не может просмотреть все позиции без прокрутки всего лэйаута. Кнопки «Get Detailed Proposal» и «Save Calculation» уходят за пределы экрана.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label crit">Рекомендация</div>
+            <div class="fix-text">Добавить <code>overflow-y: auto</code> на правую панель с фиксированной высотой (например, <code>height: calc(100vh - 76px)</code>). Пользователь должен скроллить список оборудования внутри панели, не двигая страницу.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C-06 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num crit">C-06</span>
+          <span class="severity-badge crit">Критично</span>
+          <div class="issue-title">Кнопки «Get Detailed Proposal», «Save Calculation», «Change Selection» не работают</div>
+          <div class="issue-where">Правая панель · CTA-кнопки</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            Основные призывы к действию в правой панели не выполняют никакого действия. Пользователь, готовый сделать следующий шаг, нажимает — ничего не происходит. Это разрушает доверие и оставляет горячего лида без точки выхода.
+          </div>
+          <div class="impact-note">
+            <span class="impact-icon">!</span>
+            <span>Неработающие CTA — самый быстрый способ потерять пользователя, который уже принял решение.</span>
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label crit">Рекомендация</div>
+            <div class="fix-text">«Get Detailed Proposal» — переход к Шагу 3 (контактная форма). «Save Calculation» — генерация и копирование уникальной ссылки на расчёт. «Change Selection» — возврат к Шагу 1. Всё должно работать.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C-07 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num crit">C-07</span>
+          <span class="severity-badge crit">Критично</span>
+          <div class="issue-title">Нет валидации при переходе между шагами</div>
+          <div class="issue-where">Шаг 1–2 · Кнопка NEXT</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            Кнопка «NEXT →» работает даже если пользователь не выбрал тип объекта. <code>state.form.objectType</code> будет пустой строкой — расчёт продолжится с неопределёнными данными. Ошибка никак не показывается, форма молча переходит дальше.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label crit">Рекомендация</div>
+            <div class="fix-text">Добавить проверку: кнопка «NEXT» заблокирована (серая, cursor: not-allowed), пока не выбрана карточка. Или при нажатии — подсветить незаполненное поле и вывести inline-подсказку «Выберите тип объекта».</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HIGH -->
+<section id="high" class="section" style="background: var(--dark);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag high">Высокий приоритет</div>
+      <h2 class="section-title">11 проблем, которые снижают доверие и тормозят путь пользователя</h2>
+      <p class="section-desc">Не ломают сайт, но заставляют пользователя сомневаться, путаться или уходить без конверсии.</p>
+    </div>
+
+    <div class="issues-list">
+
+      <!-- H-01 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num high">H-01</span>
+          <span class="severity-badge high">Высокий</span>
+          <div class="issue-title">Первый экран перегружен — всё вываливается сразу</div>
+          <div class="issue-where">Шаг 1 · Общая структура</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            Пользователь видит одновременно: крупный логотип, hero-блок, 5 карточек типа объекта, слайдер площади, степперы спален и дверей, переключатель бренда. Это когнитивная перегрузка с первой секунды. Вместо одного вопроса — весь опросник одновременно.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label high">Рекомендация</div>
+            <div class="fix-text">Разбить на микро-шаги: (1) Full-screen hero — только заголовок + кнопка «Начать расчёт». (2) Тип объекта. (3) Площадь + спальни + двери. (4) Выбор бренда. Каждый экран — один вопрос. Это стандарт для конверсионных калькуляторов.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H-02 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num high">H-02</span>
+          <span class="severity-badge high">Высокий</span>
+          <div class="issue-title">Выбор бренда AJAX / AX PRO закопан в параметры</div>
+          <div class="issue-where">Шаг 1 · Параметры объекта</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            Бренд — это фундаментальный выбор системы, влияющий на всё оборудование и итоговую цену. Сейчас он стоит рядом со слайдером площади и кол-вом спален, как будто это одна и та же категория данных. Большинство пользователей не знают разницу между AJAX и AX PRO — им нужна помощь с этим выбором, а не маленький toggle.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label high">Рекомендация</div>
+            <div class="fix-text">Отдельный шаг «Выберите систему» с двумя крупными карточками. На каждой: логотип, 3–4 ключевых отличия, ценовой диапазон (например, «от €X»), для кого подходит (квартиры/вилы/коммерция). Пользователь должен понять разницу и осознанно выбрать.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H-03 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num high">H-03</span>
+          <span class="severity-badge high">Высокий</span>
+          <div class="issue-title">Шаг 3 называется «Result» — но там форма, не результат</div>
+          <div class="issue-where">Прогресс-бар · Шаг 3</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            Пользователь видит в прогресс-баре «Result» и ожидает получить итог. Вместо этого он попадает в лид-форму «Get proposal by email». Цена уже показана в правой панели — и снова барьер перед «получением». Это обман ожиданий.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label high">Рекомендация</div>
+            <div class="fix-text">Переименовать шаг в «Contact» или «Get Proposal». Добавить пояснение: «Введите email — и мы вышлем вам расчёт, который вы видите справа, в PDF-формате». Сделать форму опциональной: «Сохранить расчёт» → email, «Продолжить без сохранения» → в консультацию.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H-04 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num high">H-04</span>
+          <span class="severity-badge high">Высокий</span>
+          <div class="issue-title">Оборудование показано, но количество нельзя изменить</div>
+          <div class="issue-where">Правая панель · Equipment list</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            В правой панели написано «Hub 2 Panel · 1 шт.» — но изменить это количество нельзя. Пользователь, который хочет поставить 2 панели или убрать позицию, не может этого сделать из сводки. Интуитивное ожидание — кликнуть на позицию и изменить.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label high">Рекомендация</div>
+            <div class="fix-text">Добавить inline-степперы (+/−) к каждой позиции в списке оборудования. Или добавить кнопку «Edit» рядом с каждой строкой, возвращающую пользователя к нужному шагу. Список оборудования должен быть редактируемым.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H-05 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num high">H-05</span>
+          <span class="severity-badge high">Высокий</span>
+          <div class="issue-title">Датчики — без описания, назначения и последствий</div>
+          <div class="issue-where">Шаг 2 · Security level / Extras</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            Пользователь видит «Motion Sensor», «Curtain Sensor», «Opening Detector» — но не понимает, что каждый из них делает, для чего нужен, и что будет если его не поставить. Карточки extras маленькие, информация скудная. Для нетехнического покупателя (а именно они — целевая аудитория) это чёрный ящик.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label high">Рекомендация</div>
+            <div class="fix-text">Сделать карточки датчиков горизонтальными, на всю ширину блока. Добавить: фото устройства, 1–2 строки что делает, пример применения («защищает балконную дверь от несанкционированного открытия»), опциональный tooltip «что будет без него».</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H-06 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num high">H-06</span>
+          <span class="severity-badge high">Высокий</span>
+          <div class="issue-title">Прогресс-бар не показывает завершённые шаги</div>
+          <div class="issue-where">Прогресс-бар · Все шаги</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            Все три шага выглядят одинаково — есть только «активный» (красная точка). Пользователь не видит, что Шаг 1 пройден. Нет визуального ощущения прогресса → нет мотивации дойти до конца. Классический эффект «где я нахожусь?»
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label high">Рекомендация</div>
+            <div class="fix-text">Завершённые шаги — зелёная галочка или заполненная точка. Текущий шаг — красная активная точка. Будущие шаги — серые. Это стандарт для многошаговых форм.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H-07 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num high">H-07</span>
+          <span class="severity-badge high">Высокий</span>
+          <div class="issue-title">НДС 19% и стоимость мониторинга появляются неожиданно</div>
+          <div class="issue-where">Правая панель · Cost breakdown</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            В итоговой сумме без предупреждения появляются: НДС 19% и мониторинг+патруль за €650/год (пересчитанный до 31 декабря). Пользователь ожидает «цена оборудования + монтаж» — а получает на 30–40% больше. Это классический «ценовой шок» перед финальным действием.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label high">Рекомендация</div>
+            <div class="fix-text">Вынести сноску сразу под слайдер или в hero: «Цена включает НДС 19% и первый год мониторинга». Сделать breakdown раскрытым по умолчанию — пользователь должен видеть из чего складывается сумма, а не сталкиваться с этим в конце.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H-08 -->
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num high">H-08</span>
+          <span class="severity-badge high">Высокий</span>
+          <div class="issue-title">«One-side / two-side» для окон — непонятная терминология</div>
+          <div class="issue-where">Шаг 2 · Medium level · Window sensors</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            При выборе уровня Medium появляются поля «Sliding windows (one-side)» и «Sliding windows (two-side)». Обычный пользователь не знает, что это значит. Это технический термин монтажника — не язык покупателя.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label high">Рекомендация</div>
+            <div class="fix-text">Заменить на понятный язык: «Окна, которые открываются с одной стороны» и «Окна, которые открываются с двух сторон». Добавить иконку или микро-иллюстрацию. Ещё лучше — задать вопрос «Сколько открывающихся окон в квартире?» без деления на типы.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num high">H-09</span>
+          <span class="severity-badge high">Высокий</span>
+          <div class="issue-title">Номер телефона в хедере не кликабельный</div>
+          <div class="issue-where">Хедер · +(357) 25 334 107</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            Телефон в хедере — обычный текст, не ссылка. На мобильном пользователь не может нажать и позвонить. Это потеря контакта с тёплым лидом — особенно критично для аудитории 35+, которая предпочитает звонить.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label high">Рекомендация</div>
+            <div class="fix-text">Завернуть в <code>&lt;a href="tel:+35725334107"&gt;</code>. Добавить hover-стиль. На мобильном — добавить иконку телефона для большей кликабельности.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num high">H-10</span>
+          <span class="severity-badge high">Высокий</span>
+          <div class="issue-title">Кнопка «Get Consultation» не кликабельна, нет hover-стиля</div>
+          <div class="issue-where">Хедер · Кнопка</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">
+            Кнопка «Get Consultation» визуально активна, но не реагирует на нажатие. Нет hover-состояния. Пользователь не знает: это кнопка, которая что-то делает, или просто декоративный элемент? Если кнопка ведёт в WhatsApp — нужна иконка WhatsApp. Если открывает форму — непонятно без обратной связи.
+          </div>
+          <div class="issue-fix">
+            <div class="fix-label high">Рекомендация</div>
+            <div class="fix-text">Добавить обработчик действия (WhatsApp-ссылка, скролл к форме или модал). Добавить hover CSS: изменение фона, подчёркивание или трансформация. Если ведёт в мессенджер — добавить иконку (WhatsApp / Telegram). Любая кнопка на сайте должна давать визуальный отклик.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MINOR -->
+<section id="minor" class="section" style="background: var(--black);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag low">Минорные улучшения</div>
+      <h2 class="section-title">10 деталей, которые влияют на ощущение качества</h2>
+      <p class="section-desc">Мелкие, но заметные — пользователь не уйдёт из-за них, но они создают ощущение «не доделано».</p>
+    </div>
+
+    <div class="issues-list">
+
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num low">M-01</span>
+          <span class="severity-badge low">Минорное</span>
+          <div class="issue-title">First Name + Last Name → Full Name</div>
+          <div class="issue-where">Шаг 3 · Контактная форма</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">5 обязательных полей — это много. Разделение имени и фамилии добавляет трение без реальной пользы для лида. Объединить в одно поле «Full Name».</div>
+          <div class="issue-fix">
+            <div class="fix-label">Рекомендация</div>
+            <div class="fix-text">Full Name + City + Phone + Email + Comment = 5 полей, но воспринимается легче. Или убрать City и спросить его позже при живом контакте.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num low">M-02</span>
+          <span class="severity-badge low">Минорное</span>
+          <div class="issue-title">Поле телефона без кода страны и ограничения символов</div>
+          <div class="issue-where">Шаг 3 · Поле Phone</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">Нет выбора кода страны, нет маски ввода, нет ограничения по количеству символов. Пользователи вводят номера по-разному, CRM получает «мусор».</div>
+          <div class="issue-fix">
+            <div class="fix-label">Рекомендация</div>
+            <div class="fix-text">Добавить dropdown кода страны с Кипром (+357) по умолчанию. Маска ввода по шаблону выбранного кода. Ограничение по длине. Это снижает ошибки и повышает качество лидов.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num low">M-03</span>
+          <span class="severity-badge low">Минорное</span>
+          <div class="issue-title">Нет поля для комментария / вопроса</div>
+          <div class="issue-where">Шаг 3 · Контактная форма</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">Пользователю некуда написать свой вопрос, уточнение или пожелание. Это снижает качество первого контакта — менеджер получает заявку без контекста.</div>
+          <div class="issue-fix">
+            <div class="fix-label">Рекомендация</div>
+            <div class="fix-text">Добавить textarea «Ваш вопрос или комментарий» — опциональное поле. Это увеличивает вовлечённость и даёт менеджеру контекст для первого звонка.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num low">M-04</span>
+          <span class="severity-badge low">Минорное</span>
+          <div class="issue-title">Форма не объясняет, что произойдёт после отправки</div>
+          <div class="issue-where">Шаг 3 · Контактная форма</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">Пользователь не знает: его перезвонят? Пришлют PDF? Через сколько? Неизвестность = тревога = отказ от заполнения.</div>
+          <div class="issue-fix">
+            <div class="fix-label">Рекомендация</div>
+            <div class="fix-text">Добавить строку под формой: «Мы вышлем ваш расчёт (тот, что вы видите справа) на email в течение 5 минут. Менеджер свяжется с вами в рабочее время». Простое обещание снимает барьер.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num low">M-05</span>
+          <span class="severity-badge low">Минорное</span>
+          <div class="issue-title">Модал успеха не говорит «что дальше»</div>
+          <div class="issue-where">После отправки формы · Success modal</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">После отправки появляется модал со ссылкой на расчёт. Нет: «Мы позвоним вам в течение X часов» / «Ждите письма на email». Пользователь не знает, что произошло.</div>
+          <div class="issue-fix">
+            <div class="fix-label">Рекомендация</div>
+            <div class="fix-text">Добавить в модал: «Ваша заявка принята. Мы свяжемся с вами в течение 2 рабочих часов. Ссылка на ваш расчёт:» [URL]. Чёткое следующее действие убирает тревогу.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num low">M-06</span>
+          <span class="severity-badge low">Минорное</span>
+          <div class="issue-title">Hero-блок: CSS-прямоугольники вместо реального продукта</div>
+          <div class="issue-where">Шаг 1 · Hero-секция</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">Иллюстрация в hero — четыре CSS-прямоугольника разной высоты. Ничего не показывают о продукте, не создают доверия, не выглядят профессионально.</div>
+          <div class="issue-fix">
+            <div class="fix-label">Рекомендация</div>
+            <div class="fix-text">Заменить на реальное фото установленной системы AJAX или AX PRO. Даже один хороший продуктовый снимок повышает восприятие качества и доверие к бренду.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num low">M-07</span>
+          <span class="severity-badge low">Минорное</span>
+          <div class="issue-title">Два конкурирующих CTA: хедер vs правая панель</div>
+          <div class="issue-where">Хедер + Правая панель</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">«Get Consultation» в хедере и «Get Detailed Proposal» в правой панели — два разных призыва к одному действию, без объяснения разницы.</div>
+          <div class="issue-fix">
+            <div class="fix-label">Рекомендация</div>
+            <div class="fix-text">Разграничить: хедер — быстрый контакт (WhatsApp/звонок), правая панель — отправка расчёта на email. Разные действия = разные CTA с чёткими подписями.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num low">M-08</span>
+          <span class="severity-badge low">Минорное</span>
+          <div class="issue-title">«Show all equipment» — неочевидная кнопка</div>
+          <div class="issue-where">Правая панель · Equipment list</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">Кнопка стилизована как слабозаметный ghost-элемент с низким контрастом. Многие пользователи не замечают, что список оборудования можно развернуть.</div>
+          <div class="issue-fix">
+            <div class="fix-label">Рекомендация</div>
+            <div class="fix-text">Сделать кнопку заметнее: добавить иконку «▾», изменить цвет текста, добавить hover-состояние. Или показывать счётчик: «Показать ещё 4 позиции».</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num low">M-09</span>
+          <span class="severity-badge low">Минорное</span>
+          <div class="issue-title">Грамматическая ошибка: «2 entrance» вместо «entrances»</div>
+          <div class="issue-where">Правая панель · Сводка конфигурации</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">При выборе 2+ дверей в сводке отображается «2 entrance» — без множественного числа. Мелочь, но снижает восприятие качества продукта.</div>
+          <div class="issue-fix">
+            <div class="fix-label">Рекомендация</div>
+            <div class="fix-text">Добавить логику плюрализации: <code>doors === 1 ? 'entrance' : 'entrances'</code>.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-left">
+          <span class="issue-num low">M-10</span>
+          <span class="severity-badge low">Минорное</span>
+          <div class="issue-title">Поле «City» без объяснения зачем оно нужно</div>
+          <div class="issue-where">Шаг 3 · Контактная форма</div>
+        </div>
+        <div class="issue-right">
+          <div class="issue-desc">Обязательное поле «City» без пояснения. Пользователь не понимает: это для проверки зоны обслуживания? Для логистики? Для CRM?</div>
+          <div class="issue-fix">
+            <div class="fix-label">Рекомендация</div>
+            <div class="fix-text">Добавить подпись под полем: «Для проверки зоны обслуживания» или «Для планирования выезда специалиста». Или сделать поле необязательным и добавить его в шаг обсуждения с менеджером.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="section" style="background: var(--dark);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag recs">Plan of action</div>
+      <h2 class="section-title">Roadmap исправлений</h2>
+      <p class="section-desc">Три волны по приоритету. Первая волна даёт максимальный прирост конверсии при минимальных затратах — с неё и стоит начать.</p>
+    </div>
+
+    <div class="roadmap-grid">
+      <div class="roadmap-item">
+        <div class="roadmap-phase phase-1">Волна 1 · Критично</div>
+        <h3>Исправить то, что ломает конверсию</h3>
+        <ul>
+          <li>Скрыть цену до завершения Шага 1</li>
+          <li>Привязать площадь к расчёту</li>
+          <li>Добавить поле при выборе «Other»</li>
+          <li>Исправить scroll в правой панели</li>
+          <li>Подключить все кнопки правой панели</li>
+          <li>Добавить валидацию перехода между шагами</li>
+          <li>Sticky-плашка с ценой на мобильном</li>
+        </ul>
+        <div class="roadmap-effort">≈ 1–2 недели разработки</div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-phase phase-2">Волна 2 · Высокий приоритет</div>
+        <h3>Переработать структуру и UX-логику</h3>
+        <ul>
+          <li>Разбить первый экран на микро-шаги</li>
+          <li>Вынести выбор бренда в отдельный шаг</li>
+          <li>Переименовать «Result» → «Contact»</li>
+          <li>Сделать номер телефона кликабельным</li>
+          <li>Подключить «Get Consultation» (WhatsApp)</li>
+          <li>Упростить описание окон</li>
+          <li>Прогресс-бар с completed-состоянием</li>
+          <li>Показать структуру суммы заранее</li>
+        </ul>
+        <div class="roadmap-effort">≈ 2–3 недели дизайна + разработки</div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-phase phase-3">Волна 3 · Полировка</div>
+        <h3>Поднять ощущение качества продукта</h3>
+        <ul>
+          <li>Объединить First+Last Name → Full Name</li>
+          <li>Маска телефона с кодом страны (+357)</li>
+          <li>Добавить поле «Комментарий»</li>
+          <li>Объяснить что будет после отправки</li>
+          <li>Доработать модал успеха</li>
+          <li>Заменить CSS-образ на фото продукта</li>
+          <li>Исправить грамматику «entrances»</li>
+          <li>Усилить видимость «Show all equipment»</li>
+        </ul>
+        <div class="roadmap-effort">≈ 1 неделя</div>
+      </div>
+    </div>
+
+    <!-- Alert bar -->
+    <div style="margin-top:1px;background:rgba(227,27,35,0.05);border:1px solid rgba(227,27,35,0.15);border-top:none;padding:20px 32px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+      <span style="color:var(--red);font-size:16px;font-weight:800;flex-shrink:0;">→</span>
+      <span style="font-size:13px;color:var(--text-muted);line-height:1.65;">Быстрая победа: <strong style="color:var(--text);">C-01 + C-03 + C-06</strong> — три исправления, которые уберут самый большой барьер (шок-цена) и восстановят рабочие точки выхода в заявку. Можно сделать за 2–3 дня и сразу измерить эффект.</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-name">Елизавета Николаенко</div>
+        <div class="footer-contacts">
+          <a href="https://wa.me/380933624193" target="_blank">WhatsApp: +380 93 362 41 93</a>
+          <a href="https://t.me/nnikollaenko" target="_blank">Telegram: @nnikollaenko</a>
+          <a href="mailto:nikolaenkoelizaveta@gmail.com">nikolaenkoelizaveta@gmail.com</a>
+        </div>
+      </div>
+      <div class="footer-hours" style="font-size:13px;color:var(--text-muted);line-height:1.8;">
+        <strong style="color:var(--text);font-size:13px;display:block;margin-bottom:4px;">nìkel digital studio</strong>
+        Время работы: 9:00–20:00, Пн–Пт (GMT+3)<br>
+        Кипр
+      </div>
+    </div>
+    <div class="footer-prepared">UX-аудит подготовлен nìkel digital studio &nbsp;·&nbsp; Июнь 2026 &nbsp;·&nbsp; sft.cy/calculator</div>
+  </div>
+</footer>
+
+</body>
+</html>
